@@ -2,6 +2,7 @@ package com.joaovictorcmd.snapbuy.snapbuy.controllers;
 
 import com.joaovictorcmd.snapbuy.snapbuy.dto.ProductDTO;
 import com.joaovictorcmd.snapbuy.snapbuy.services.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> insert(@Valid @RequestBody ProductDTO productDTO) {
         productDTO = productService.insert(productDTO);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -45,7 +46,7 @@ public class ProductController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO productDTO) {
         productDTO = productService.update(id, productDTO);
         return ResponseEntity.ok(productDTO);
     }
